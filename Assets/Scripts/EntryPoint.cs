@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
+    [SerializeField] private PlayerScript player;
     [SerializeField] private Canvas mLoseCanvas;
     private void Awake()
     {
