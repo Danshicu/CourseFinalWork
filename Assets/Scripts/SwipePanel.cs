@@ -3,53 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SwingPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class SwipePanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] private PlayerScript player;
-
-    public bool pressed = false;
+    
 
     private float firstClickPosX;
     private float secondClickPosX;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (pressed)
-        {
-            if (Input.touchCount > 0)
-            {
-                
-            }
-        }
-    }
+    [SerializeField] private float minimalSwipeLength; 
+    
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (eventData.pointerCurrentRaycast.gameObject == this.gameObject)
         {
-            pressed = true;
             firstClickPosX = Input.touches[0].position.x;
         }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        pressed = false;
         secondClickPosX = Input.touches[0].position.x;
-        if (CalculateSwipe() > 0)
+        float thisSwipe = CalculateSwipe();
+        if (Mathf.Abs(thisSwipe) > minimalSwipeLength)
         {
-            player.MovePlayerWithAnimationLeft();
+            if (thisSwipe > 0)
+            {
+                player.MovePlayerWithAnimationLeft();
+            }
+            else
+            {
+                player.MovePlayerWithAnimationRight();
+            }
         }
-        else
-        {
-            player.MovePlayerWithAnimationRight();
-        };
     }
 
     private float CalculateSwipe()

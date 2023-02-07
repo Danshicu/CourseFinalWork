@@ -7,13 +7,8 @@ public class PlayerFollow : MonoBehaviour
     [SerializeField] private Transform player;
 
     [SerializeField] private Vector3 offset;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
-    // Update is called once per frame
     void Update()
     {
         this.transform.position = offset + new Vector3(0, player.position.y, 0);

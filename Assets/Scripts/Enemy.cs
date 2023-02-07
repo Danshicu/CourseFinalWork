@@ -10,13 +10,11 @@ public class Enemy : MonoBehaviour
 {
     public static Action StopGame;
     private Collider _mCollider;
-    void Start()
+
+    public Rigidbody rigidbody() => GetComponent<Rigidbody>();
+    void Awake()
     {
         _mCollider = GetComponent<Collider>();
-    }
-    void Update()
-    {
-        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -24,6 +22,5 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")){
             StopGame?.Invoke();
         }
-        //TODO
     }
 }

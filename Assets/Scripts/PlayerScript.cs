@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
+    private Collider myCollider;
     private bool IsClimbing = true;
     private bool IsJumping=false;
     private Transform m_player;
@@ -13,11 +14,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float WaitForJumpTime;
     void Awake()
     {
+        myCollider = gameObject.GetComponent<Collider>();
         m_player = gameObject.GetComponent<Transform>();
-        //m_position = m_player.position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         MyInput();
         if (Input.GetMouseButtonDown(0))
@@ -34,6 +35,7 @@ public class PlayerScript : MonoBehaviour
     public void SetClimbingStateFor(bool factor)
     {
         IsClimbing = factor;
+        myCollider.enabled = factor;
     }
 
     IEnumerator DisableInputForJump()
@@ -62,14 +64,6 @@ public class PlayerScript : MonoBehaviour
             if (!IsJumping)
             {
                 m_player.position += Vector3.up * vertical_step;
-                // if (Input.GetAxis("Horizontal") > 0)
-                // {
-                //     MovePlayerWithAnimationRight();
-                // }
-                // else if (Input.GetAxis("Horizontal") < 0)
-                // {
-                //     MovePlayerWithAnimationLeft();
-                // }
             }
         }
     }

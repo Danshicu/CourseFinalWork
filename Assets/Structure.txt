@@ -1,0 +1,67 @@
+EntryPoint
+	Environment
+		Ground
+		WindowsSpawner
+			object WindowPrefab
+	Player
+		Rigidbody
+		Model
+		Animations
+		+MovePlayer(float SomeNumber)
+			float HorizontalStep
+			:position.x +=
+		+AutoClimb()
+			float VerticalStep
+			:position.y +=
+		+StopClimb()
+			float Maximal NonClimbingTime
+				:After that time Die()
+		+Die()
+			:AddCoins
+			:ShowLoseCanvas
+	Opened Windows Spawner
+		EnemiesSpawner Prefab
+		collider Collider
+			+OnCollisionEnter()
+				:If Player - Player.Die()
+		EnemiesSpawner
+			+SpawnRandomEnemy()
+			MotherObjectPool
+				List<ObjectPool<Enemy>>
+					int Count
+					transform PositionToSpawn
+					Enemy Prefab
+					+GetFreeElement()
+				+GetRandomElementFromPools()
+			Enemy
+				Good
+					+AddCoinsToThisRun()
+				Bad
+					+KillPlayerOnCollision()
+						:Player.Die()
+				Rigidbody
+				float LifeTime
+
+
+Graphic
+	Canvases
+		Lose
+			TotalHeigth
+			Restart Button
+			Exit Button
+		Win
+			TotalHeigth
+			New Run Button
+			Exit Button
+		Pause
+			Exit Button
+			Restart Button
+			Continue Button
+		Swipe Input Field for Player
+			float MinimalSwipeLength
+	MoneyCounter
+		InGame :On Game show how much picked at run
+		InMenu :On Lose/Win Canvases show how much at all
+	Buttons
+		PauseButton
+			CallPauseCanvas()
