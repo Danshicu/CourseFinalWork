@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1939586568994180028}
   m_Layer: 0
-  m_Name: 'Window '
+  m_Name: ClosedWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

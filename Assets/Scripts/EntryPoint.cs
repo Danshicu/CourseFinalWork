@@ -18,12 +18,14 @@ public class EntryPoint : MonoBehaviour
     }
     private void Awake()
     {
+        KillZone.KillPlayer += Stop;
         Enemy.StopGame += Stop;
         EnemiesSpawner.RequestPool += AddSpawner;
     }
 
     private void OnDisable()
     {
+        KillZone.KillPlayer -= Stop;
         Enemy.StopGame -= Stop;
         EnemiesSpawner.RequestPool -= AddSpawner;
     }
