@@ -10,7 +10,6 @@ public class WindowsSpawner : MonoBehaviour
     [SerializeField] private GameObject closedWindow;
     [SerializeField] private int windowCountPerLevel = 5;
     [SerializeField] private int maxOpenedPerLevelCount = 3;
-    //private List<GameObject> thisLevel;
     private List<float> positions = new List<float>();
     [SerializeField] private float spawnDelay;
     private Vector3 currentPosition = new Vector3();
@@ -29,9 +28,9 @@ public class WindowsSpawner : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnWindows()
+    public void SpawnWindows()
     {
-        while (this.gameObject.activeInHierarchy)
+        if (this.gameObject.activeInHierarchy)
         {
             foreach (var position in positions)
             {
@@ -40,10 +39,9 @@ public class WindowsSpawner : MonoBehaviour
             }
 
             currentPosition.y += closedWindow.transform.localScale.y;
-            yield return new WaitForSeconds(spawnDelay);
         }
     }
-    void Start()
+    void Awake()
     {
         currentPosition.x = this.transform.position.x;
         currentPosition.y = this.transform.position.y;
@@ -54,8 +52,6 @@ public class WindowsSpawner : MonoBehaviour
             positions.Add(posX);
             posX += closedWindow.transform.localScale.x;
         }
-
-        StartCoroutine(SpawnWindows());
     }
 
     
