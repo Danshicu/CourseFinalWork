@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409431570782358250}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.42913628, y: -0.05, z: -10.030026}
-  m_LocalScale: {x: 18, y: 0.9, z: 0.050000004}
+  m_LocalRotation: {x: 0, y: 0.70090926, z: 0, w: 0.71325046}
+  m_LocalPosition: {x: -0.286, y: -0.050000034, z: -8.94}
+  m_LocalScale: {x: 16, y: 0.9, z: 0.050000004}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7862254857257946844}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 89, z: 0}
 --- !u!33 &5456148558871086964
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3924310674ff78c4094fd51ec7b91181, type: 2}
+  - {fileID: 2100000, guid: 305a2e91722512c4ba474251633d0ed8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -177,7 +177,6 @@ GameObject:
   - component: {fileID: 9013296141899258717}
   - component: {fileID: 673386271005175345}
   - component: {fileID: 2298567008201646766}
-  - component: {fileID: 5007610304118670088}
   m_Layer: 0
   m_Name: KillZone
   m_TagString: Enemy
@@ -208,7 +207,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2718560317963997612}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.8, y: 2.7, z: 1}
@@ -225,21 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 595a7fb9194282c4eab15f185920e96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5007610304118670088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2718560317963997612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0be629659fd7ca40bdd008c53c60d71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minimalSpawnInterval: 3
-  maximalSpawnInterval: 5
-  _pool: {fileID: 0}
 --- !u!1 &3985424137084948678
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7862254857257946844}
+  - component: {fileID: 6972791758574113394}
   m_Layer: 0
   m_Name: OpenedWindow
   m_TagString: Enemy
@@ -442,3 +427,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6972791758574113394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7340521287974150367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0be629659fd7ca40bdd008c53c60d71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minimalSpawnInterval: 5
+  maximalSpawnInterval: 9
+  _pool: {fileID: 0}
+  minSpawnCount: 2
+  maxSpawnCount: 5

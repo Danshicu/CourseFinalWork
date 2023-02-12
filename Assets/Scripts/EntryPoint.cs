@@ -7,10 +7,10 @@ using UnityEngine;
 public class EntryPoint : MonoBehaviour
 {
     [SerializeField] private PlayerScript player;
-    [SerializeField] private Canvas mLoseCanvas;
+    [SerializeField] private Canvas loseCanvas;
     [SerializeField] private MotherObjectPool _pool;
     [SerializeField] private List<EnemiesSpawner> spawners = new List<EnemiesSpawner>();
-    [SerializeField] private LevelSpawner levelSpawner;
+    [SerializeField] private SpawnTrigger spawnTrigger;
     [SerializeField] private WindowsSpawner windowsSpawner;
 
     private void AddSpawner(EnemiesSpawner tempSpawner)
@@ -20,7 +20,7 @@ public class EntryPoint : MonoBehaviour
     }
     private void Awake()
     {
-        levelSpawner.SpawnLevel += windowsSpawner.SpawnWindows;
+        spawnTrigger.SpawnLevel += windowsSpawner.SpawnWindows;
         KillZone.KillPlayer += Stop;
         Enemy.StopGame += Stop;
         EnemiesSpawner.RequestPool += AddSpawner;
@@ -28,7 +28,7 @@ public class EntryPoint : MonoBehaviour
 
     private void OnDisable()
     {
-        levelSpawner.SpawnLevel += windowsSpawner.SpawnWindows;
+        spawnTrigger.SpawnLevel += windowsSpawner.SpawnWindows;
         KillZone.KillPlayer -= Stop;
         Enemy.StopGame -= Stop;
         EnemiesSpawner.RequestPool -= AddSpawner;
@@ -37,7 +37,7 @@ public class EntryPoint : MonoBehaviour
 
     void Stop()
     {
-       mLoseCanvas.gameObject.SetActive(true);
+       loseCanvas.gameObject.SetActive(true);
        Time.timeScale = 0f;
     }
 }

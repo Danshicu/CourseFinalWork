@@ -9,9 +9,7 @@ public class WindowsSpawner : MonoBehaviour
     [SerializeField] private GameObject openedWindow;
     [SerializeField] private GameObject closedWindow;
     [SerializeField] private int windowCountPerLevel = 5;
-    [SerializeField] private int maxOpenedPerLevelCount = 3;
     private List<float> positions = new List<float>();
-    [SerializeField] private float spawnDelay;
     private Vector3 currentPosition = new Vector3();
 
 

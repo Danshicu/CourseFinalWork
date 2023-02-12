@@ -6,24 +6,25 @@ using Random = UnityEngine.Random;
 
 public class EnemiesSpawner : MonoBehaviour
 {
-    [SerializeField] private float minimalSpawnInterval;
-    [SerializeField] private float maximalSpawnInterval;
+    [SerializeField] private float minimalSpawnInterval=5f;
+    [SerializeField] private float maximalSpawnInterval=9f;
     [SerializeField] private MotherObjectPool _pool;
     public static Action<EnemiesSpawner> RequestPool;
-
+    [SerializeField] private int minSpawnCount=2;
+    [SerializeField] private int maxSpawnCount=5;
+    
     public void SetPool(MotherObjectPool generalPool)
     {
         this._pool = generalPool;
     }
 
 
-    private IEnumerator Spawn()
+    private IEnumerator Spawn(int spawnCount)
     {
-        while (this.gameObject.activeInHierarchy)
+        for (int i =0; i<spawnCount; i++)
         {
             yield return new WaitForSeconds(Random.Range(minimalSpawnInterval, maximalSpawnInterval));
             var enemy = _pool.GetRandomObject();
-            enemy.rigidbody().velocity = Vector3.zero;
             enemy.gameObject.SetActive(true);
             enemy.transform.position = this.transform.position;
             
@@ -32,8 +33,9 @@ public class EnemiesSpawner : MonoBehaviour
     
     private void OnEnable()
     {
+        int spawnCount = Random.Range(minSpawnCount, maxSpawnCount);
         RequestPool?.Invoke(this);
-        StartCoroutine(Spawn());
+        StartCoroutine(Spawn(spawnCount));
     }
     
 }
