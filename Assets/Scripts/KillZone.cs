@@ -1,23 +1,20 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(Collider))]
 
-public class KillZone : MonoBehaviour
+namespace Pramchuk
 {
-    private Collider _collider;
-    static public Action KillPlayer;
-    void Awake()
-    {
-        _collider = GetComponent<Collider>();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            KillPlayer?.Invoke();
-        }
-    }
+   [RequireComponent(typeof(Collider))]
+   public class KillZone : MonoBehaviour
+   {
+       public static Action killPlayer;
+       
+       private void OnCollisionEnter(Collision collision)
+       {
+           if (collision.gameObject.CompareTag("Player"))
+           {
+               killPlayer?.Invoke();
+           }
+       }
+   } 
 }
+

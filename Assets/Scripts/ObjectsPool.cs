@@ -1,64 +1,65 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-public class ObjectsPool<T> where T:MonoBehaviour
+namespace Pramchuk
 {
-    private List<T> pool;
-    private T prefab;
-    private int count;
-    private Transform location;
-
-    public ObjectsPool(T prefab, int count, Transform place)
+    public class ObjectsPool<T> where T:MonoBehaviour
     {
-        location = place;
-        this.prefab = prefab;
-        this.count = count;
-        this.CreatePool();
-    }
-
-    private void CreatePool()
-    {
-        this.pool = new List<T>();
-        for (int i = 0; i < count; i++)
+        private List<T> pool;
+        private T prefab;
+        public int count { private set; get; }
+        private Transform location;
+    
+        public ObjectsPool(T prefab, int count, Transform place)
         {
-            this.CreateObject();
+            location = place;
+            this.prefab = prefab;
+            this.count = count;
+            this.CreatePool();
         }
-    }
-
-    private T CreateObject()
-    {
-        var newObject = Object.Instantiate(this.prefab, location);
-        newObject.gameObject.SetActive(false);
-        pool.Add(newObject);
-        return newObject;
-    }
-
-    public bool HasFreeElement(out T element)
-    {
-        foreach (var item in pool)
+    
+        private void CreatePool()
         {
-            if (!item.gameObject.activeInHierarchy)
+            this.pool = new List<T>();
+            for (int i = 0; i < count; i++)
             {
-                element = item;
-                item.gameObject.SetActive(true);
-                return true;
+                this.CreateObject();
             }
         }
-
-        element = null;
-        return false;
-    }
-
-    public T GetFreeElement()
-    {
-        if (this.HasFreeElement(out var element))
+    
+        private T CreateObject()
         {
-            return element;
+            var newObject = Object.Instantiate(this.prefab, location);
+            newObject.gameObject.SetActive(false);
+            pool.Add(newObject);
+            return newObject;
         }
-
-        throw new Exception("No free element");
+    
+        public bool HasFreeElement(out T element)
+        {
+            foreach (var item in pool)
+            {
+                if (!item.gameObject.activeInHierarchy)
+                {
+                    element = item;
+                    item.gameObject.SetActive(true);
+                    return true;
+                }
+            }
+    
+            element = null;
+            return false;
+        }
+    
+        public T GetFreeElement()
+        {
+            if (this.HasFreeElement(out var element))
+            {
+                return element;
+            }
+            return null;
+        }
     }
+
 }

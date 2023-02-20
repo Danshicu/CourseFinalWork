@@ -1,34 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[System.Serializable]
-public class EnemyObject
-    {
-        [SerializeField] public Enemy prefab;
-        [SerializeField] public int count;
-        [SerializeField] public Transform place;
-    }
-public class MotherObjectPool : MonoBehaviour
+namespace Pramchuk
 {
-    [SerializeField] private List<EnemyObject> entityVariations;
-    [SerializeField] private List<ObjectsPool<Enemy>> entities = new List<ObjectsPool<Enemy>>();
+   [System.Serializable]
+   public class EnemyObject<T> where T: MonoBehaviour
+       {
+           [SerializeField] public T prefab;
+           [SerializeField] public int count;
+           [SerializeField] public Transform place;
+       }
+   public class MotherObjectPool : MonoBehaviour
+   {
+       [SerializeField] private List<EnemyObject<FallableObject>> entityVariations;
+       private List<ObjectsPool<FallableObject>> entities = new();
+       private int totalCount;
+   
+       private void Awake()
+       {
+           foreach (var entity in entityVariations)
+           {
+               var newpool = new ObjectsPool<FallableObject>(entity.prefab, entity.count, entity.place);
+               entities.Add(newpool);
+               totalCount += entity.count;
+           }
+       }
 
-    private void Awake()
-    {
-        foreach (var entity in entityVariations)
-        {
-            var newpool = new ObjectsPool<Enemy>(entity.prefab, entity.count, entity.place);
-            entities.Add(newpool);
-            int number = entities.Count;   
-        }
-    }
+       public void GetRandomObject(out FallableObject item)
+       {
+           int elementNumber = Random.Range(0, totalCount);
+           item = null;
+           int tempCount = 0;
+           for (int i = 0; i < entities.Count; i++)
+           {
+               tempCount += entities[i].count;
+               if (tempCount >= elementNumber)
+               {
+                   item = entities[i].GetFreeElement();
+                   break;
+               }
+           }
 
-    public Enemy GetRandomObject()
-    {
-        int elementNumber = Random.Range(0, entities.Count);
-        var item = entities[elementNumber].GetFreeElement();
-        return item;
-    }
+       }
+   }
+ 
 }

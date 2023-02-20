@@ -1,56 +1,57 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
-public class WindowsSpawner : MonoBehaviour
+namespace Pramchuk
 {
-    [SerializeField] private GameObject openedWindow;
-    [SerializeField] private GameObject closedWindow;
-    [SerializeField] private int windowCountPerLevel = 5;
-    private List<float> positions = new List<float>();
-    private Vector3 currentPosition = new Vector3();
-
-
-    private void AddRandomWindow(Vector3 currentPos)
+    public class WindowsSpawner : MonoBehaviour
     {
-        int randomIndex = Random.Range(0, 10);
-        if (randomIndex < 8)
-        {
-            Instantiate(closedWindow, currentPos, Quaternion.identity);
-        }
-        else
-        {
-             Instantiate(openedWindow, currentPos, Quaternion.identity);
-        }
-    }
-
-    public void SpawnWindows()
-    {
-        if (this.gameObject.activeInHierarchy)
-        {
-            foreach (var position in positions)
-            {
-                currentPosition.x = position;
-                AddRandomWindow(currentPosition);
-            }
-
-            currentPosition.y += closedWindow.transform.localScale.y;
-        }
-    }
-    void Awake()
-    {
-        currentPosition.x = this.transform.position.x;
-        currentPosition.y = this.transform.position.y;
-        currentPosition.z = this.transform.position.z;
-        float posX = this.transform.position.x - (windowCountPerLevel / 2 * closedWindow.transform.localScale.x);
-        for (int i = 0; i < windowCountPerLevel; i++)
-        {
-            positions.Add(posX);
-            posX += closedWindow.transform.localScale.x;
-        }
-    }
-
+        [SerializeField] private GameObject openedWindow;
+        [SerializeField] private GameObject closedWindow;
+        [SerializeField] private int windowCountPerLevel = 5;
+        private readonly List<float> _positions = new();
+        private Vector3 _currentPosition = new();
     
+    
+        private void AddRandomWindow(Vector3 currentPos)
+        {
+            int randomIndex = Random.Range(0, 10);
+            if (randomIndex < 8)
+            {
+                Instantiate(closedWindow, currentPos, Quaternion.identity);
+            }
+            else
+            {
+                 Instantiate(openedWindow, currentPos, Quaternion.identity);
+            }
+        }
+    
+        public void SpawnWindows()
+        {
+            if (this.gameObject.activeInHierarchy)
+            {
+                foreach (var position in _positions)
+                {
+                    _currentPosition.x = position;
+                    AddRandomWindow(_currentPosition);
+                }
+    
+                _currentPosition.y += closedWindow.transform.localScale.y;
+            }
+        }
+        void Awake()
+        {
+            _currentPosition.x = transform.position.x;
+            _currentPosition.y = transform.position.y;
+            _currentPosition.z = transform.position.z;
+            float posX = transform.position.x - (windowCountPerLevel / 2 * closedWindow.transform.localScale.x);
+            for (int i = 0; i < windowCountPerLevel; i++)
+            {
+                _positions.Add(posX);
+                posX += closedWindow.transform.localScale.x;
+            }
+        }
+    
+        
+    }
+
 }
