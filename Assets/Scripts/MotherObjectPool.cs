@@ -34,7 +34,7 @@ namespace Pramchuk
            int tempCount = 0;
            for (int i = 0; i < entities.Count; i++)
            {
-               tempCount += entities[i].count;
+               tempCount += entities[i].Count;
                if (tempCount >= elementNumber)
                {
                    item = entities[i].GetFreeElement();

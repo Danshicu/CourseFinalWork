@@ -5,18 +5,20 @@ namespace Pramchuk
 {
     public class PlayerScript : MonoBehaviour
     {
-        private Collider myCollider;
-        private bool IsClimbing = true;
-        private bool IsJumping=false;
-        private Transform m_player;
-        private Vector3 m_position;
-        [SerializeField] private float horizontal_step;
-        [SerializeField] private float vertical_step;
-        [SerializeField] private float WaitForJumpTime;
+        private Collider _myCollider;
+        private bool _isClimbing = true;
+        private bool _isJumping=false;
+        private Transform _mPlayer;
+        private Vector3 _mPosition;
+        [SerializeField] private float minimalCoordinateX=-3.5f;
+        [SerializeField] private float maximalCoordinateX=3.5f;
+        [SerializeField] private float horizontalStep = 2f;
+        [SerializeField] private float verticalStep = 0.04f;
+        [SerializeField] private float waitForJumpTime = 1f;
         void Awake()
         {
-            myCollider = gameObject.GetComponent<Collider>();
-            m_player = gameObject.GetComponent<Transform>();
+            _myCollider = gameObject.GetComponent<Collider>();
+            _mPlayer = gameObject.GetComponent<Transform>();
         }
     
         void FixedUpdate()
@@ -33,44 +35,50 @@ namespace Pramchuk
             }
         }
     
-        public void SetClimbingStateFor(bool factor)
+        private void SetClimbingStateFor(bool factor)
         {
-            IsClimbing = factor;
-            myCollider.enabled = factor;
+            _isClimbing = factor;
+            _myCollider.enabled = factor;
         }
     
         IEnumerator DisableInputForJump()
         {
-            IsJumping = true;
-            yield return new WaitForSeconds(WaitForJumpTime);
-            IsJumping = false;
+            _isJumping = true;
+            yield return new WaitForSeconds(waitForJumpTime);
+            _isJumping = false;
         }
     
         public void MovePlayerWithAnimationLeft()
         {
-            if (!IsJumping)
+            if (_mPlayer.position.x > minimalCoordinateX)
             {
-                m_player.position += Vector3.left * horizontal_step;
-                StartCoroutine(DisableInputForJump());
+                if (!_isJumping)
+                {
+                    _mPlayer.position += Vector3.left * horizontalStep;
+                    StartCoroutine(DisableInputForJump());
+                }
             }
         }
-    
-        
+
+
         public void MovePlayerWithAnimationRight()
         {
-            if (!IsJumping)
+            if (_mPlayer.position.x < maximalCoordinateX)
             {
-                m_player.position += Vector3.right * horizontal_step;
-                StartCoroutine(DisableInputForJump());
+                if (!_isJumping)
+                {
+                    _mPlayer.position += Vector3.right * horizontalStep;
+                    StartCoroutine(DisableInputForJump());
+                }
             }
         }
-        void MyInput()
+        private void MyInput()
         {
-            if (IsClimbing)
+            if (_isClimbing)
             {
-                if (!IsJumping)
+                if (!_isJumping)
                 {
-                    m_player.position += Vector3.up * vertical_step;
+                    _mPlayer.position += Vector3.up * verticalStep;
                 }
             }
         }

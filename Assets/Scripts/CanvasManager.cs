@@ -1,22 +1,57 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CanvasManager : MonoBehaviour
+namespace Pramchuk
 {
-    [SerializeField] private Canvas loseCanvas;
-    [SerializeField] private Canvas winCanvas;
-    [SerializeField] private Canvas pauseCanvas;
-    [SerializeField] private Canvas inGameCanvas;
-    
-    
-    // Start is called before the first frame update
-    void Start()
+    public class CanvasManager : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Text inGameMoneyCounter;
+        [SerializeField] private Text pauseMoneyCounter;
+        [SerializeField] private Text winMoneyCounter;
+        [SerializeField] private Canvas loseCanvas;
+        [SerializeField] private Canvas winCanvas;
+        [SerializeField] private Canvas pauseCanvas;
+        [SerializeField] private Canvas inGameCanvas;
+        public Action resumeGame;
+        public Action pauseGame;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        public void Lose()
+        {
+            loseCanvas.gameObject.SetActive(true);
+        }
+
+        public void Win()
+        {
+            ShowTotalMoney();
+            winCanvas.gameObject.SetActive(true);
+        }
+
+        public void Pause()
+        {
+            pauseGame?.Invoke();
+            inGameCanvas.gameObject.SetActive(false);
+            pauseMoneyCounter.text = inGameMoneyCounter.text;
+            pauseCanvas.gameObject.SetActive(true);
+        }
+
+        public void Resume()
+        {
+            resumeGame?.Invoke();
+            pauseCanvas.gameObject.SetActive(false);
+            inGameCanvas.gameObject.SetActive(true);
+        }
+
+        public void SetCurrentMoney(int value)
+        {
+            inGameMoneyCounter.text = $"{value}$";
+        }
+
+        private void ShowTotalMoney()
+        {
+            int value = PlayerPrefs.GetInt("TotalMoney");
+            winMoneyCounter.text = $"{value}$";
+        }
     }
 }

@@ -22,10 +22,10 @@ namespace Pramchuk
     
         [SerializeField] private Animation closingAnimation;
         
-        public static Action<EnemiesSpawner> RequestPool;
+        public static Action<EnemiesSpawner> requestPool;
         public void SetPool(MotherObjectPool generalPool)
         {
-            this._pool = generalPool;
+            _pool = generalPool;
         }
     
     
@@ -52,7 +52,7 @@ namespace Pramchuk
         private void OnEnable()
         {
             int spawnCount = Random.Range(minSpawnCount, maxSpawnCount);
-            RequestPool?.Invoke(this);
+            requestPool?.Invoke(this);
             StartCoroutine(Spawn(spawnCount));
         }
     

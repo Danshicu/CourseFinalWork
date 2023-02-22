@@ -6,7 +6,7 @@ namespace Pramchuk
     [RequireComponent(typeof(Collider))]
     public class SpawnTrigger : MonoBehaviour
     {
-        public Action SpawnLevel;
+        public Action spawnLevel;
         [SerializeField] private float windowHeight = 3f;
         private Vector3 CurrentPosition;
     
@@ -17,7 +17,7 @@ namespace Pramchuk
     
         private void OnCollisionEnter(Collision collision)
         {
-            SpawnLevel?.Invoke();
+            spawnLevel?.Invoke();
             CurrentPosition.y += windowHeight;
             transform.position = CurrentPosition;
         }

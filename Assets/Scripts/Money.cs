@@ -12,7 +12,7 @@ namespace Pramchuk
             if (other.gameObject.CompareTag("Player"))
             {
                 addMoney?.Invoke(value);
-                this.gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
         }
     }

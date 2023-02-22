@@ -6,39 +6,39 @@ namespace Pramchuk
 {
     public class ObjectsPool<T> where T:MonoBehaviour
     {
-        private List<T> pool;
-        private T prefab;
-        public int count { private set; get; }
-        private Transform location;
+        private List<T> _pool;
+        private readonly T _prefab;
+        public int Count { private set; get; }
+        private readonly Transform _location;
     
         public ObjectsPool(T prefab, int count, Transform place)
         {
-            location = place;
-            this.prefab = prefab;
-            this.count = count;
-            this.CreatePool();
+            _location = place;
+            _prefab = prefab;
+            Count = count;
+            CreatePool();
         }
     
         private void CreatePool()
         {
-            this.pool = new List<T>();
-            for (int i = 0; i < count; i++)
+            _pool = new List<T>();
+            for (int i = 0; i < Count; i++)
             {
-                this.CreateObject();
+                CreateObject();
             }
         }
     
         private T CreateObject()
         {
-            var newObject = Object.Instantiate(this.prefab, location);
+            var newObject = Object.Instantiate(_prefab, _location);
             newObject.gameObject.SetActive(false);
-            pool.Add(newObject);
+            _pool.Add(newObject);
             return newObject;
         }
     
         public bool HasFreeElement(out T element)
         {
-            foreach (var item in pool)
+            foreach (var item in _pool)
             {
                 if (!item.gameObject.activeInHierarchy)
                 {
@@ -47,19 +47,17 @@ namespace Pramchuk
                     return true;
                 }
             }
-    
             element = null;
             return false;
         }
     
         public T GetFreeElement()
         {
-            if (this.HasFreeElement(out var element))
+            if (HasFreeElement(out var element))
             {
                 return element;
             }
             return null;
         }
     }
-
 }

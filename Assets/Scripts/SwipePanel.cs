@@ -10,12 +10,12 @@ namespace Pramchuk
         private float _firstClickPosX;
         private float _secondClickPosX;
     
-        [SerializeField] private float minimalSwipeLength; 
-        
-    
+        [SerializeField] private float minimalSwipeLength;
+
+
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (eventData.pointerCurrentRaycast.gameObject == this.gameObject)
+            if (eventData.pointerCurrentRaycast.gameObject == gameObject)
             {
                 _firstClickPosX = Input.touches[0].position.x;
             }
