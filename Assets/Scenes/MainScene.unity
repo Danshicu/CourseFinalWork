@@ -773,11 +773,23 @@ MonoBehaviour:
     count: 5
     place: {fileID: 77272325}
   - prefab: {fileID: 877381980627264699, guid: e03c2d70840986e40a5c3dbfa1c7b94a, type: 3}
-    count: 3
+    count: 5
     place: {fileID: 77272325}
-  - prefab: {fileID: 7405611263271257587, guid: e0500b13aaeda2245890a5abc8aa77e6,
+  - prefab: {fileID: 3372341942465693908, guid: 209631892bc503d40b8aabb5d34b82be,
       type: 3}
-    count: 4
+    count: 8
+    place: {fileID: 77272325}
+  - prefab: {fileID: 7223363765255754051, guid: 44096da4531cb3d4f8c1c818c3a98120,
+      type: 3}
+    count: 8
+    place: {fileID: 77272325}
+  - prefab: {fileID: 1501977573316172975, guid: 162e8b8f43d313b4aad4a715f5af31f7,
+      type: 3}
+    count: 2
+    place: {fileID: 77272325}
+  - prefab: {fileID: 2315671927254419713, guid: d19893900a924ec46b68c00f610332f8,
+      type: 3}
+    count: 10
     place: {fileID: 77272325}
 --- !u!1 &121972079
 GameObject:

@@ -8,7 +8,6 @@ namespace Pramchuk
     {
         [SerializeField] private WinTrigger winTrigger;
         [SerializeField] private MoneyCounter moneyCounter;
-        [SerializeField] private LevelManager levelManager;
         [SerializeField] private CanvasManager canvasManager;
         [SerializeField] private MotherObjectPool pool;
         [SerializeField] private SpawnTrigger spawnTrigger;
